@@ -1,0 +1,22 @@
+{
+  "name": "dio",
+  "version": "1.0.0",
+  "description": "A web application for Aquaponics monitoring.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-cascades/dio-web.git"
+  },
+  "author": "Makeila Lundy, Justin Tappert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/osu-cascades/dio-web/issues"
+  },
+  "homepage": "https://github.com/osu-cascades/dio-web#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
