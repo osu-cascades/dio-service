@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/osu-cascades/dio-web#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "foreman": "2.0.0"
   },
   "engines": {
-    "node": "6.9.2"
+    "node": "6.9.2",
+    "npm": "3.10.9"
   }
 }
