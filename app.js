@@ -19,9 +19,17 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, 'views'));
 
 app.get('/', function (req, res) {
-    res.render("index");
+    var userAgent = req.headers["user-agent"] || "none";
+    if (req.accepts("html")) {
+        res.render("index", { userAgent: userAgent });
+    } else {
+        res.type("text");
+        res.send(userAgent);
+    }
 });
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
+
+module.exports = app;
