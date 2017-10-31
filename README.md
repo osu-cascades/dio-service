@@ -24,20 +24,25 @@ $ npm -v
 ### Installing
 
 First start by cloning the repo; create a new directory and navigate to it and run
-```
+```npm
 $ git clone https://github.com/osu-cascades/dio-service.git
 ```
-
 Once cloned, the dependencies can be installed by running
-```
+```npm
 $ npm install
 ```
-
 To verify that the application has been properly installed, run
 ```npm
 $ npm start
 ```
 If everything installed correctly the app should be running at `localhost:3000`
+
+### Sequelize
+
+This application uses sequelize ORM, to get your database up-to-date run
+```npm
+$ node_modules/.bin/sequelize db:migrate
+```
 
 ## Running the tests
 
