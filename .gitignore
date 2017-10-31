@@ -29,8 +29,6 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
-config/
-.idea/*
 
 # Optional npm cache directory
 .npm
@@ -51,3 +49,4 @@ npm-degbug.log
 # dotenv environment variables file
 .env
 seeders/
+.idea/

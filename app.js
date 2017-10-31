@@ -3,12 +3,7 @@ var express = require('express');
 var path = require('path');
 var app = express();
 const Sequelize = require('sequelize');
-var user = process.env.DB_USER;
-var pass = process.env.DB_PASS;
-var host = process.env.DB_HOST;
-var port = process.env.DB_PORT;
-var db = process.env.DB_NAME;
-const sequelize = new Sequelize('mysql://'+user+':'+pass+'@'+host+':'+port+'/'+db);
+const sequelize = new Sequelize(process.env.DEV_DB_CONN);
 
 sequelize
     .authenticate()
