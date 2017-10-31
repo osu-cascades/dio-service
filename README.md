@@ -1,6 +1,6 @@
-# D.io Service
+# DiO Service
 
-D.io is an aquaponics management system built for Volcano Veggies. This repo houses the server-side application and exposes a simple API.
+DiO is an aquaponics management system built for Volcano Veggies. This repo houses the server-side application and exposes a simple API.
 
 ## Getting Started
 
