@@ -1,9 +1,14 @@
+var dotenv = require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var app = express();
 const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize('mysql://root:password@localhost:3306/dio');
+var user = process.env.DB_USER;
+var pass = process.env.DB_PASS;
+var host = process.env.DB_HOST;
+var port = process.env.DB_PORT;
+var db = process.env.DB_NAME;
+const sequelize = new Sequelize('mysql://'+user+':'+pass+'@'+host+':'+port+'/'+db);
 
 sequelize
     .authenticate()
