@@ -31,7 +31,7 @@ Once cloned, the dependencies can be installed by running
 ```npm
 $ npm install
 ```
-You will also need a .enc file to hold your config strings, to get a one run
+You will also need a .env file to hold your config strings, to get a one run
 ```npm
 $ node setup.js
 ```
@@ -47,9 +47,7 @@ If everything installed correctly the app should be running at `localhost:3000`
 
 This application uses sequelize ORM, to connect to your database you will need to set some .env variables for sequelize to find. Your .env file should look something like this
 ```npm
-DEV_DB_CONN=mysql://user:password@host:port/db_name
-TEST_DB_CONN=mysql://user:password@host:port/db_name
-PROD_DB_CONN=mysql://user:password@host:port/db_name
+DB_CONN=mysql://user:password@host:port/db_name
 ```
 Once your .env file is saved, and assuming you're running a MySQL server, you should be able to run the migrations to get your database up to date
 
