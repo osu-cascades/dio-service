@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var app = express();
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(process.env.DEV_DB_CONN);
+const sequelize = new Sequelize(process.env.DB_CONN);
 
 sequelize
     .authenticate()
