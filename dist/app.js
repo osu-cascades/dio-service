@@ -1,18 +1,17 @@
-const dotenv = require('dotenv').config();
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const app = express();
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize(process.env.DB_CONN);
-const api = require('./routes/api.js');
+'use strict';
 
-sequelize
-    .authenticate()
-    .then(function() {
+var dotenv = require('dotenv').config();
+var express = require('express');
+var path = require('path');
+var bodyParser = require('body-parser');
+var app = express();
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(process.env.DB_CONN);
+var api = require('./routes/api.js');
+
+sequelize.authenticate().then(function () {
     console.log('Connection has been established successfully.');
-})
-.catch(function(err) {
+}).catch(function (err) {
     console.error('Unable to connect to the database:', err);
 });
 
@@ -28,3 +27,4 @@ app.listen(process.env.PORT || 3000, function () {
 });
 
 module.exports = app;
+//# sourceMappingURL=app.js.map
