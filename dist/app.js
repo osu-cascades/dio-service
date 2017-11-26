@@ -23,7 +23,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/v1', api);
+app.use('/api/v1', api);
 app.use(function (req, res) {
     res.status(400);
     res.end('Not Found');
