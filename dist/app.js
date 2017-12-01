@@ -28,6 +28,9 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+app.get('/', function (request, response) {
+    response.send('DiO Service API!');
+});
 app.use('/api/v1', api);
 app.use(function (req, res) {
     res.status(400);
