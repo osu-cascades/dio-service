@@ -7,7 +7,9 @@ const Sequelize     = require('sequelize');
 const api           = require('./routes/api.js');
 
 const app = express();
-const sequelize = new Sequelize(process.env.JAWSDB_URL);
+//const sequelize = new Sequelize(process.env.JAWSDB_URL);
+const sequelize = new Sequelize(process.env.DB_CONN);
+
 
 sequelize.authenticate().then(function () {
     console.log('Connection has been established successfully.');
