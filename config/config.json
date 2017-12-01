@@ -1,10 +1,10 @@
 {
   "development": {
-    "use_env_variable": "DB_CONN",
+    "use_env_variable": "JAWSDB_URL",
     "dialect": "mysql"
   },
   "test": {
-    "use_env_variable": "DB_CONN",
+    "use_env_variable": "JAWSDB_URL",
     "dialect": "mysql"
   },
   "production": {
