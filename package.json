@@ -31,7 +31,10 @@
     "path": "^0.12.7",
     "sequelize": "^4.19.0",
     "sequelize-cli": "^3.0.0",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "gulp-babel": "^7.0.0"
   },
   "engines": {
     "node": "6.9.2",
