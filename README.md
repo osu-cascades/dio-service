@@ -8,18 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You will need both Node.js and NPM before you start, to install them run
-
-```
-$ brew install node
-```
-To make sure they're both installed properly run the following commands and verify the output
-```npm
-$ node -v
-v6.9.2
-$ npm -v
-3.10.9
-```
+You will need Node.js, NPM, and a Sequelize-compatible database server, such as MySQL.
 
 ### Installing
 
