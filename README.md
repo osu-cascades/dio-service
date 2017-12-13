@@ -15,20 +15,24 @@ You will need Node.js, NPM, and a Sequelize-compatible database server, such as 
 Clone the repo, navigate to it, and install the dependencies:
 
 ```
-$ npm install
+npm install
 ```
 
-You will also need a .env file to hold your config strings, to get a one run
-```npm
-$ node setup.js
-```
-This will create a .env file for you to enter your config strings, you can now remove the .sample-env file from your repo.
+For convenience, generate the necessary .env file:
 
-To verify that the application has been properly installed, run
-```npm
-$ npm start
 ```
-If everything installed correctly the app should be running at `localhost:3000`
+node setup.js
+```
+
+This creates a _.env_ file for environment variables. See the **Sequelize** section below.
+
+Run the application:
+
+```
+npm start
+```
+
+The app should be running at _http://localhost:3000_.
 
 ### Sequelize
 
