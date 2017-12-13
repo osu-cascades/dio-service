@@ -1,5 +1,5 @@
 {
-  "name": "DiO Service",
+  "name": "dio-service",
   "version": "0.0.1",
   "description": "DiO web service for sensor readings.",
   "main": "app.js",
