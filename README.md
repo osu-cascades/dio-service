@@ -10,16 +10,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 You will need Node.js, NPM, and a Sequelize-compatible database server, such as MySQL.
 
-### Installing
+### Running
 
-First start by cloning the repo; create a new directory and navigate to it and run
-```npm
-$ git clone https://github.com/osu-cascades/dio-service.git
+Clone the repo, navigate to it, and install the dependencies:
+
 ```
-Once cloned, the dependencies can be installed by running
-```npm
 $ npm install
 ```
+
 You will also need a .env file to hold your config strings, to get a one run
 ```npm
 $ node setup.js
