@@ -1,7 +1,7 @@
 {
-  "name": "dio",
-  "version": "1.0.0",
-  "description": "A web application for Aquaponics monitoring.",
+  "name": "DiO Service",
+  "version": "0.0.1",
+  "description": "DiO web service for sensor readings.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/osu-cascades/dio-web.git"
+    "url": "git+https://github.com/osu-cascades/dio-service.git"
   },
   "author": "Makeila Lundy, Justin Tappert",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/osu-cascades/dio-web/issues"
+    "url": "https://github.com/osu-cascades/dio-service/issues"
   },
-  "homepage": "https://github.com/osu-cascades/dio-web#readme",
+  "homepage": "https://github.com/osu-cascades/dio-service#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
