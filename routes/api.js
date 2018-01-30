@@ -2,7 +2,6 @@ const express     = require('express');
 const models      = require('../models');
 const api         = express.Router();
 
-
 api.post('/do/readings', (req, res) => {
     models.DissolvedOxygenReading.create({
        reading: req.body.reading,
