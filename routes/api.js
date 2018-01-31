@@ -10,7 +10,10 @@ api.post('/do/readings', (req, res) => {
     }).then(() => {
         res.status(200);
         res.send(`Success`);
-    }).catch(err => console.error(err));
+    }).catch(err => {
+        res.status(500);
+        res.send(err);
+    });
 });
 
 // get all readings
@@ -18,7 +21,10 @@ api.get('/do/readings', (req, res) => {
     models.DissolvedOxygenReading.findAll().then(readings => {
         res.status(200);
         res.send(readings);
-    }).catch(err => console.log(err));
+    }).catch(err => {
+        res.status(500);
+        res.send(err);
+    });
 });
 
 // get last 10 readings
