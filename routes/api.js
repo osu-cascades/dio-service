@@ -1,22 +1,34 @@
-const express     = require('express');
-const models      = require('../models');
-const api         = express.Router();
+const express = require('express');
+const models = require('../models');
+const api = express.Router();
 
 api.post('/do/readings', (req, res) => {
     models.DissolvedOxygenReading.create({
-       reading: req.body.reading,
-       location: req.body.location
+        reading: req.body.reading,
+        location: req.body.location
     }).then(() => {
         res.status(200);
         res.send(`Success`);
     }).catch(err => console.error(err));
 });
 
-api.get('/do/readings', function(req, res) {
+api.get('/do/readings', function (req, res) {
     models.DissolvedOxygenReading.findAll().then(readings => {
-       res.status(200);
-       res.send(readings);
+        res.status(200);
+        res.send(readings);
     }).catch(err => console.log(err));
+});
+
+api.get('/do/readings/recent', (req, res) => {
+    models.DissolvedOxygenReading.findAll({
+        limit: 10,
+        order: [['createdAt', 'DESC']]
+    })
+        .then(readings => {
+            res.status(200);
+            res.send(readings);
+        })
+        .catch(err => console.log(err));
 });
 
 module.exports = api;
