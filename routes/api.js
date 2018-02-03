@@ -1,7 +1,6 @@
 const express = require('express');
 const models = require('../models');
 const api = express.Router();
-const moment = require('moment');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -62,13 +61,12 @@ api.get('/do/readings/last', (req, res) => {
         });
 });
 
-api.post('/do/readings/query', (req, res) => {
-    let start = moment(req.startDate).format('YYYY-MM-DD HH:mm:ss');
-    let end = moment(req.endDate).format('YYYY-MM-DD HH:mm:ss');
+// get readings between start date and end date
+api.get('/do/readings/query', (req, res) => {
     models.DissolvedOxygenReading.findAll({
         where: {
             createdAt: {
-                [Op.between]: [start, end]
+                [Op.between]: [req.query.start, req.query.end]
             }
         }
     })
