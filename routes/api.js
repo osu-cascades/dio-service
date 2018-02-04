@@ -3,9 +3,11 @@ const models = require('../models');
 const api = express.Router();
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const twilioEvent = require('../public/javascript/twilio');
 
 // save new reading to the database
 api.post('/do/readings', (req, res) => {
+    twilioEvent.eventFilter(req.body.reading);
     models.DissolvedOxygenReading.create({
         reading: req.body.reading,
         location: req.body.location
