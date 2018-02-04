@@ -9,11 +9,11 @@ const twilioEvent = {
         if (reading <= 10) {
             client.messages.create({
                 body: 'The Dissolved Oxygen reading fell below 10ppm',
-                to: '+15414192095',
-                from: '+15415267698'
+                to: process.env.recipient,
+                from: process.env.sender
             })
-                .then((message) => console.log(message.sid))
-                .catch((errors) => console.log(errors));
+                .then((message) => console.log("Text message sent: id:" + message.sid))
+                .catch((errors) => console.log("Failed to send text: " + errors));
         }
     }
 };
