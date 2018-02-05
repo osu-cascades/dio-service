@@ -6,7 +6,7 @@ const client = new twilio(accountSid, authToken);
 
 const twilioEvent = {
     eventFilter: (reading) => {
-        if (reading < 9) {
+        if (reading < 8) {
             this.sendNotification();
         }
     },
