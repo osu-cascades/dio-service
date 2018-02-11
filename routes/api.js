@@ -8,7 +8,7 @@ const twilioEvent = require('../public/javascript/twilio');
 // save new reading to the database
 api.post('/do/readings', (req, res) => {
     twilioEvent.eventFilter(req.body.reading);
-    models.DissolvedOxygenReading.create({
+    models.Readings.create({
         reading: req.body.reading,
         location: req.body.location
     }).then(() => {
@@ -22,7 +22,7 @@ api.post('/do/readings', (req, res) => {
 
 // get all readings
 api.get('/do/readings', (req, res) => {
-    models.DissolvedOxygenReading.findAll().then(readings => {
+    models.Readings.findAll().then(readings => {
         res.status(200);
         res.send(readings);
     }).catch(err => {
@@ -33,7 +33,7 @@ api.get('/do/readings', (req, res) => {
 
 // get last 10 readings
 api.get('/do/readings/recent', (req, res) => {
-    models.DissolvedOxygenReading.findAll({
+    models.Readings.findAll({
         limit: 10,
         order: [['createdAt', 'DESC']]
     })
@@ -49,7 +49,7 @@ api.get('/do/readings/recent', (req, res) => {
 
 // get last reading
 api.get('/do/readings/last', (req, res) => {
-    models.DissolvedOxygenReading.findAll({
+    models.Readings.findAll({
         limit: 1,
         order: [['createdAt', 'DESC']]
     })
@@ -65,7 +65,7 @@ api.get('/do/readings/last', (req, res) => {
 
 // get readings between start date and end date
 api.get('/do/readings/query', (req, res) => {
-    models.DissolvedOxygenReading.findAll({
+    models.Readings.findAll({
         where: {
             createdAt: {
                 [Op.between]: [req.query.start, req.query.end]

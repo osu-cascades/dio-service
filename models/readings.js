@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  let DissolvedOxygenReading = sequelize.define('DissolvedOxygenReading', {
+  let Readings = sequelize.define('Readings', {
     reading: DataTypes.DOUBLE,
     location: DataTypes.STRING
   }, {
@@ -11,5 +11,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return DissolvedOxygenReading;
+  return Readings;
 };
