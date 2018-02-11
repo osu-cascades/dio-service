@@ -51,4 +51,18 @@ harvests.post('/:id', (req, res) => {
         });
 });
 
+harvests.delete('/:id', (req, res) => {
+    let harvestId = req.params.id;
+    models.Harvest.findById(harvestId)
+        .then((harvest) => {
+            harvest.destroy();
+            res.status(200);
+            res.send('successfully removed harvest with id: ' + harvestId);
+        })
+        .catch((errors) => {
+            res.status(500);
+            res.send(errors);
+        });
+});
+
 module.exports = harvests;
