@@ -23,6 +23,12 @@ harvests.post('/', (req, res) => {
        name: 'New Harvest',
        startDate: new Date(),
        endDate: new Date()
+   }).then((response) => {
+       res.status(200);
+       res.send('successfully created new harvest!');
+   }).catch((errors) => {
+       res.status(500);
+       res.send(errors);
    });
 });
 
