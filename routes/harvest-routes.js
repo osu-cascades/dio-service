@@ -5,7 +5,7 @@ const Sequelize = require('sequelize');
 const moment = require('moment');
 
 // get all harvests
-harvests.get('/harvest', (req, res) => {
+harvests.get('/', (req, res) => {
     models.Harvest.findAll()
         .then((harvests) => {
             res.status(200);
@@ -18,7 +18,7 @@ harvests.get('/harvest', (req, res) => {
 });
 
 // create a new harvest
-harvests.post('/harvest', (req, res) => {
+harvests.post('/', (req, res) => {
    models.Harvest.create({
        name: 'New Harvest',
        startDate: new Date(),
@@ -27,7 +27,7 @@ harvests.post('/harvest', (req, res) => {
 });
 
 // update harvest by id
-harvests.post('/harvest/:id', (req, res) => {
+harvests.post('/:id', (req, res) => {
     let harvestId = req.params.id;
     models.Harvest.findById(harvestId)
         .then((harvest) => {

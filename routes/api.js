@@ -4,7 +4,7 @@ const api = express.Router();
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const twilioEvent = require('../public/javascript/twilio');
-const harvests
+const harvests = require('./harvest-routes');
 
 // save new reading to the database
 api.post('/do/readings', (req, res) => {
@@ -82,5 +82,7 @@ api.get('/do/readings/query', (req, res) => {
             res.send(errors);
         })
 });
+
+api.use('/harvests', harvests);
 
 module.exports = api;
