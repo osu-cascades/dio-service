@@ -19,17 +19,19 @@ harvests.get('/', (req, res) => {
 
 // create a new harvest
 harvests.post('/', (req, res) => {
-   models.Harvest.create({
-       name: 'New Harvest',
-       startDate: new Date(),
-       endDate: new Date()
-   }).then((response) => {
-       res.status(200);
-       res.send('successfully created new harvest!');
-   }).catch((errors) => {
-       res.status(500);
-       res.send(errors);
-   });
+    models.Harvest.create({
+        name: 'New Harvest',
+        startDate: new Date(),
+        endDate: new Date()
+    })
+        .then((response) => {
+            res.status(200);
+            res.send(response);
+        })
+        .catch((errors) => {
+            res.status(500);
+            res.send(errors);
+        });
 });
 
 // update harvest by id
