@@ -37,6 +37,7 @@ harvests.post('/', (req, res) => {
 // get harvest by id
 harvests.get('/:id', (req,res) => {
     let harvestId = req.params.id;
+    console.log("id: " + harvestId);
     models.Harvest.findById(harvestId)
         .then((harvest) => {
             res.status(200);
@@ -71,8 +72,8 @@ harvests.delete('/:id', (req, res) => {
     let harvestId = req.params.id;
     models.Harvest.findById(harvestId)
         .then((harvest) => {
-            res.status(200);
             harvest.destroy().then(response => console.log(response)).catch(errors => res.send(errors));
+            res.status(200);
             res.send(harvest);
         })
         .catch((errors) => {
