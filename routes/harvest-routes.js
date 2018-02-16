@@ -34,6 +34,20 @@ harvests.post('/', (req, res) => {
         });
 });
 
+// get harvest by id
+harvests.get('/:id', (req,res) => {
+    let harvestId = req.params.id;
+    models.Harvest.findById(harvestId)
+        .then((harvest) => {
+            res.status(200);
+            res.send(harvest);
+        })
+        .catch((errors) => {
+            res.status(500);
+            res.send(errors);
+        });
+});
+
 // update harvest by id
 harvests.post('/:id', (req, res) => {
     let harvestId = req.params.id;
