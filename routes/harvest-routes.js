@@ -72,8 +72,8 @@ harvests.delete('/:id', (req, res) => {
     models.Harvest.findById(harvestId)
         .then((harvest) => {
             res.status(200);
-            res.send('successfully removed harvest with id: ' + harvestId);
-            harvest.destroy().then(response => res.send(response)).catch(errors => res.send(errors));
+            harvest.destroy().then(response => console.log(response)).catch(errors => res.send(errors));
+            res.send(harvest);
         })
         .catch((errors) => {
             res.status(500);
