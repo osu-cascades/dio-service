@@ -21,6 +21,22 @@ api.post('/do/readings', (req, res) => {
     });
 });
 
+
+var knex = require('knex')({
+  client: 'mysql',
+  connection: {
+    host : process.env.jimDBHost,
+    user : process.env.jimDBUser,
+    password : process.env.jimDBPass,
+    database : process.env.jimDB
+  }
+});
+
+var knex = require('knex')({client: 'pg'});
+knex('monitoring').insert({value: req.body.reading, location: 'TANK 1', post_type: 'DO' });
+// "insert into "table" ("a") values ('b')"
+
+
 // get all readings
 api.get('/do/readings', (req, res) => {
     models.Readings.findAll().then(readings => {
