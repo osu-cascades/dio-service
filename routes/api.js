@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config();
 const express = require('express');
 const models = require('../models');
 const api = express.Router();
@@ -5,6 +6,7 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const twilioEvent = require('../public/javascript/twilio');
 const harvests = require('./harvest-routes');
+const moment = require('moment');
 
 // save new reading to the database
 api.post('/do/readings', (req, res) => {
@@ -19,23 +21,28 @@ api.post('/do/readings', (req, res) => {
         res.status(500);
         res.send(err);
     });
+
+    let knex = require('knex')({
+        client: 'mysql2',
+        connection: {
+            host: process.env.jimDBHost,
+            user: process.env.jimDBUser,
+            password: process.env.jimDBPass,
+            database: process.env.jimDBA,
+            port: process.env.jimDBPort
+        },
+        debug: true
+    });
+
+    knex.insert({heading: 'DO', value: req.body.reading, datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), location: 'TANK 1', post_type: 'DO'})
+        .into('monitoring')
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((errors) => {
+            console.log(errors);
+        });
 });
-
-
-var knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host : process.env.jimDBHost,
-    user : process.env.jimDBUser,
-    password : process.env.jimDBPass,
-    database : process.env.jimDB
-  }
-});
-
-var knex = require('knex')({client: 'pg'});
-knex('monitoring').insert({value: req.body.reading, location: 'TANK 1', post_type: 'DO' });
-// "insert into "table" ("a") values ('b')"
-
 
 // get all readings
 api.get('/do/readings', (req, res) => {
