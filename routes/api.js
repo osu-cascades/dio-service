@@ -21,27 +21,7 @@ api.post('/do/readings', (req, res) => {
         res.status(500);
         res.send(err);
     });
-
-    let knex = require('knex')({
-        client: 'mysql2',
-        connection: {
-            host: process.env.jimDBHost,
-            user: process.env.jimDBUser,
-            password: process.env.jimDBPass,
-            database: process.env.jimDBA,
-            port: process.env.jimDBPort
-        },
-        debug: true
-    });
-
-    knex.insert({heading: 'DO', value: req.body.reading, datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), location: 'TANK 1', post_type: 'DO'})
-        .into('monitoring')
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((errors) => {
-            console.log(errors);
-        });
+    sendDataToJimsDatabase(req.body.reading);
 });
 
 // get all readings
@@ -109,3 +89,25 @@ api.get('/do/readings/query', (req, res) => {
 api.use('/harvests', harvests);
 
 module.exports = api;
+
+let sendDataToJimsDatabase = (reading) => {
+    let knex = require('knex')({
+        client: 'mysql2',
+        connection: {
+            host: process.env.jimDBHost,
+            user: process.env.jimDBUser,
+            password: process.env.jimDBPass,
+            database: process.env.jimDBA,
+            port: process.env.jimDBPort
+        },
+    });
+
+    knex.insert({heading: 'DO', value: reading, datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), location: 'TANK 1', post_type: 'DO'})
+        .into('monitoring')
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((errors) => {
+            console.log(errors);
+        });
+};
