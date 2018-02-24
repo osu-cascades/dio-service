@@ -97,7 +97,7 @@ let sendDataToJimsDatabase = (reading) => {
             host: process.env.jimDBHost,
             user: process.env.jimDBUser,
             password: process.env.jimDBPass,
-            database: process.env.jimDBA,
+            database: process.env.jimDB,
             port: process.env.jimDBPort
         },
     });
