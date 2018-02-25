@@ -68,3 +68,4 @@ WIP
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/osu-cascades/dio-service/tags).
 
 &copy; 2017 Justin Tappert. All rights reserved.
+&copy; 2017 Makeila Lundy. All rights reserved.
