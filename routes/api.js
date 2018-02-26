@@ -102,7 +102,7 @@ let sendDataToJimsDatabase = (reading) => {
         },
     });
 
-    knex.insert({heading: 'DO', value: reading, datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), location: 'TANK 1', post_type: 'DO'})
+    knex.insert({heading: 'DO', value: reading, datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), location: '1', post_type: 'DO', grow_level: 'Tank'})
         .into('monitoring')
         .then((response) => {
             console.log(response);
