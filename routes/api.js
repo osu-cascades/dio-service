@@ -90,7 +90,19 @@ api.use('/harvests', harvests);
 
 module.exports = api;
 
-let sendDataToJimsDatabase = (reading) => {
+let sendDataToJimsDatabase = (reading, location) => {
+    let loc;
+    switch (location) {
+        case 'TANK 1':
+            loc = 1;
+            break;
+        case 'TANK 2':
+            loc = 2;
+            break;
+        default:
+            loc = 0;
+    }
+
     let knex = require('knex')({
         client: 'mysql2',
         connection: {
@@ -102,7 +114,7 @@ let sendDataToJimsDatabase = (reading) => {
         },
     });
 
-    knex.insert({heading: 'DO', value: reading, datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), location: '1', post_type: 'DO', grow_level: 'Tank'})
+    knex.insert({heading: 'DO', value: reading, datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), location: loc, post_type: 'DO', grow_level: 'Tank'})
         .into('monitoring')
         .then((response) => {
             console.log(response);
