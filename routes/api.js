@@ -102,6 +102,21 @@ module.exports = api;
 
 let sendDataToJimsDatabase = (reading, location, type) => {
     let loc = location.match(/\d+/g).map(Number);
+    let sensorType = '';
+
+    switch (type) {
+        case '0':
+            sensorType = 'DO';
+            break;
+        case '1':
+            sensorType = 'PH';
+            break;
+        case '2':
+            sensorType = 'EC';
+            break;
+        default:
+            sensorType = 'NA'
+    }
 
     let knex = require('knex')({
         client: 'mysql2',
@@ -114,7 +129,7 @@ let sendDataToJimsDatabase = (reading, location, type) => {
         },
     });
 
-    console.log(`reading: ${reading}, location: ${location}, type: ${type}, loc: ${loc}`);
+    console.log(`reading: ${reading}, location: ${location}, type: ${sensorType}, loc: ${loc}`);
 
     knex.insert({heading: 'DO', value: reading, datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), location: loc, post_type: 'DO', grow_level: 'Tank'})
         .into('monitoring')
