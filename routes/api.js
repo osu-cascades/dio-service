@@ -12,15 +12,18 @@ const moment = require('moment');
 api.post('/do/readings', (req, res) => {
     const reading = req.body.reading;
     const location = req.body.location;
+    const type = req.body.type;
 
     twilioEvent.eventFilter(reading);
 
     console.log("reading: " + reading);
     console.log("location: " + location);
+    console.log("type: " + type);
 
     models.Readings.create({
         reading: reading,
-        location: location
+        location: location,
+        type: type
     }).then(() => {
         res.status(200);
         res.send(`Success`);
@@ -28,7 +31,7 @@ api.post('/do/readings', (req, res) => {
         res.status(500);
         res.send(err);
     });
-    sendDataToJimsDatabase(reading, location);
+    sendDataToJimsDatabase(reading, location, type);
 });
 
 // get all readings
@@ -97,7 +100,7 @@ api.use('/harvests', harvests);
 
 module.exports = api;
 
-let sendDataToJimsDatabase = (reading, location) => {
+let sendDataToJimsDatabase = (reading, location, type) => {
     let loc = location.match(/\d+/g).map(Number);
 
     let knex = require('knex')({
@@ -111,7 +114,7 @@ let sendDataToJimsDatabase = (reading, location) => {
         },
     });
 
-    console.log(`reading: ${reading}, location: ${location}, loc: ${loc}`);
+    console.log(`reading: ${reading}, location: ${location}, type: ${type}, loc: ${loc}`);
 
     knex.insert({heading: 'DO', value: reading, datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), location: loc, post_type: 'DO', grow_level: 'Tank'})
         .into('monitoring')
