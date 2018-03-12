@@ -6,12 +6,12 @@ const client = new twilio(accountSid, authToken);
 
 const twilioEvent = {
     eventFilter: (reading) => {
-        if (reading < 8) {
+        if (reading < 5) {
             this.sendNotification();
         }
     },
 
-    sendNotification: () => {
+    sendNotification: function() {
         client.messages.create({
             body: 'The Dissolved Oxygen reading fell below 10ppm',
             to: process.env.recipient,
