@@ -10,25 +10,30 @@ const moment = require('moment');
 
 // save new reading to the database
 api.post('/do/readings', (req, res) => {
-    const reading = req.body.reading;
-    const location = req.body.location;
+    if (ensureReadingDataIsNumeric(req.body.reading)) {
+        const reading = req.body.reading;
+        const location = req.body.location;
 
-    twilioEvent.eventFilter(reading);
+        twilioEvent.eventFilter(reading);
 
-    console.log("reading: " + reading);
-    console.log("location: " + location);
+        console.log("reading: " + reading);
+        console.log("location: " + location);
 
-    models.Readings.create({
-        reading: reading,
-        location: location
-    }).then(() => {
-        res.status(200);
-        res.send(`Success`);
-    }).catch(err => {
+        models.Readings.create({
+            reading: reading,
+            location: location
+        }).then(() => {
+            res.status(200);
+            res.send(`Success`);
+        }).catch(err => {
+            res.status(500);
+            res.send(err);
+        });
+        sendDataToJimsDatabase(reading, location);
+    } else {
         res.status(500);
-        res.send(err);
-    });
-    sendDataToJimsDatabase(reading, location);
+        res.send('reading contained data that was not numeric');
+    }
 });
 
 // get all readings
@@ -113,7 +118,14 @@ let sendDataToJimsDatabase = (reading, location) => {
 
     console.log(`reading: ${reading}, location: ${location}, loc: ${loc}`);
 
-    knex.insert({heading: 'DO', value: reading, datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"), location: loc, post_type: 'DO', grow_level: 'Tank'})
+    knex.insert({
+        heading: 'DO',
+        value: reading,
+        datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+        location: loc,
+        post_type: 'DO',
+        grow_level: 'Tank'
+    })
         .into('monitoring')
         .then((response) => {
             console.log(response);
@@ -121,4 +133,9 @@ let sendDataToJimsDatabase = (reading, location) => {
         .catch((errors) => {
             console.log(errors);
         });
+};
+
+let ensureReadingDataIsNumeric = (data) => {
+    const isDecimalOrFloat = /^[0-9]+([,.][0-9]+)?$/g;
+    return isDecimalOrFloat.test(data);
 };
