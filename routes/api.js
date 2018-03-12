@@ -13,15 +13,17 @@ api.post('/do/readings', (req, res) => {
     if (ensureReadingDataIsNumeric(req.body.reading)) {
         const reading = req.body.reading;
         const location = req.body.location;
-
+        const type = req.body.type;
         twilioEvent.eventFilter(reading);
 
         console.log("reading: " + reading);
         console.log("location: " + location);
+        console.log("type: " + type);
 
         models.Readings.create({
             reading: reading,
-            location: location
+            location: location,
+            type: type
         }).then(() => {
             res.status(200);
             res.send(`Success`);
@@ -29,7 +31,7 @@ api.post('/do/readings', (req, res) => {
             res.status(500);
             res.send(err);
         });
-        sendDataToJimsDatabase(reading, location);
+        sendDataToJimsDatabase(reading, location, type);
     } else {
         res.status(500);
         res.send('reading contained data that was not numeric');
@@ -102,8 +104,23 @@ api.use('/harvests', harvests);
 
 module.exports = api;
 
-let sendDataToJimsDatabase = (reading, location) => {
+let sendDataToJimsDatabase = (reading, location, type) => {
     let loc = location.match(/\d+/g).map(Number);
+    let sensorType = '';
+
+    switch (type) {
+        case '0':
+            sensorType = 'DO';
+            break;
+        case '1':
+            sensorType = 'PH';
+            break;
+        case '2':
+            sensorType = 'EC';
+            break;
+        default:
+            sensorType = 'NA'
+    }
 
     let knex = require('knex')({
         client: 'mysql2',
@@ -116,7 +133,7 @@ let sendDataToJimsDatabase = (reading, location) => {
         },
     });
 
-    console.log(`reading: ${reading}, location: ${location}, loc: ${loc}`);
+    console.log(`reading: ${reading}, location: ${location}, type: ${sensorType}, loc: ${loc}`);
 
     knex.insert({
         heading: 'DO',
