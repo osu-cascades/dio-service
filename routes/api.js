@@ -4,9 +4,14 @@ const models = require("../models");
 const api = express.Router();
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const twilioEvent = require("../public/javascript/twilio");
 const harvests = require("./harvest-routes");
 const moment = require("moment");
+const env = process.env.NODE_ENV;
+
+// only set up twilio if in production mode, texts cost $$$
+if (env === "production") {
+	const twilioEvent = require("../public/javascript/twilio");
+}
 
 // save new reading to the database
 api.post("/do/readings", (req, res) => {
@@ -32,7 +37,7 @@ api.post("/do/readings", (req, res) => {
 				res.status(500);
 				res.send(err);
 			});
-		if (app.settings.env === "production") {
+		if (env === "production") {
 			twilioEvent.eventFilter(reading);
 			sendDataToJimsDatabase(reading, location, type);
 		}
