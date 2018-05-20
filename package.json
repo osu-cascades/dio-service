@@ -4,7 +4,8 @@
   "description": "DiO web service for sensor readings.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "cross-env NODE_ENV=development node app.js",
+    "build": "cross-env NODE_ENV=production node app.js",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "deploy": "git push origin master && git push heroku master && heroku run npm run migrate",
     "test": "mocha"
@@ -47,6 +48,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
+    "cross-env": "^5.1.5",
     "gulp-babel": "^7.0.0",
     "mocha": "^4.0.1",
     "supertest": "^3.1.0"

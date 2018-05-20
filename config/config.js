@@ -1,16 +1,12 @@
 const dotenv = require("dotenv").config();
-const env = process.env.NODE_ENV || "dev";
+const env = process.env.NODE_ENV || "development";
 
-const dev = {
+const development = {
 	app: {
 		port: parseInt(process.env.DEV_APP_PORT) || 3000
 	},
 	db: {
-		username: process.env.DEV_USER,
-		password: process.env.DEV_PASS,
-		database: process.env.DEV_DB,
-		host: process.env.DEV_HOST,
-		dialect: "mysql"
+		connectionUrl: process.env.DEV_CONN
 	},
 	twilio: {
 		accountSid: process.env.accountSid,
@@ -20,16 +16,12 @@ const dev = {
 	}
 };
 
-const prod = {
+const production = {
 	app: {
-		port: 3000
+		port: parseInt(process.env.PROD_APP_PORT) || 3000
 	},
 	db: {
-		username: process.env.PROD_USER,
-		password: process.env.PROD_PASS,
-		database: process.env.PROD_DB,
-		host: process.env.PROD_HOST,
-		dialect: "mysql"
+		connectionUrl: process.env.PROD_CONN
 	},
 	twilio: {
 		accountSid: process.env.accountSid,
@@ -66,8 +58,8 @@ const test = {
 };
 
 const config = {
-	dev,
-	prod,
+	development,
+	production,
 	test
 };
 
