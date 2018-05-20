@@ -36,6 +36,13 @@ const prod = {
 		authToken: process.env.authToken,
 		sender: process.env.sender,
 		recipient: process.env.recipient
+	},
+	jim: {
+		host: process.env.jimDBHost,
+		user: process.env.jimDBUser,
+		pass: process.env.jimDBPass,
+		db: process.env.jimDB,
+		port: process.env.jimDBPort
 	}
 };
 
