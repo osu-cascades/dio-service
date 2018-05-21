@@ -3,12 +3,12 @@ const env = process.env.NODE_ENV || "development";
 
 const development = {
 	// needed for migrations
-	username: process.env.DEV_USER,
-	password: process.env.DEV_PASS,
-	database: process.env.DEV_DB,
-	host: process.env.DEV_HOST,
-	dialect: process.env.DEV_DIALECT,
-	connectionUrl: process.env.DEV_CONN,
+	username: process.env.DEV_USER || "root",
+	password: process.env.DEV_PASS || "password",
+	database: process.env.DEV_DB || "dio",
+	host: process.env.DEV_HOST || "localhost",
+	dialect: process.env.DEV_DIALECT || "mysql",
+	connectionUrl: process.env.DEV_CONN || "mysql://root:password@localhost:3306/dio",
 	twilio: {
 		accountSid: process.env.DEV_TWIL,
 		authToken: process.env.DEV_TOKEN,
