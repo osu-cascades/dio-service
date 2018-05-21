@@ -45,7 +45,8 @@ const test = {
 	password: process.env.DEV_PASS,
 	database: process.env.DEV_DB,
 	host: process.env.DEV_HOST,
-	dialect: "mysql",
+	dialect: process.env.DEV_DIALECT,
+	connectionUrl: process.env.DEV_CONN,
 	twilio: {
 		accountSid: process.env.DEV_TWIL,
 		authToken: process.env.DEV_TOKEN,
