@@ -14,48 +14,64 @@ You will need Node.js, NPM, and a Sequelize-compatible database server, such as 
 
 Clone the repo, navigate to it, and install the dependencies:
 
-```
+```npm
 npm install
 ```
 
 For convenience, generate the necessary .env file:
 
-```
+```npm
 node setup.js
 ```
 
-This creates a _.env_ file for environment variables. See the **Sequelize** section below.
+This creates a _.env_ file for environment variables. This project uses Sequelize ORM as well as Twilio for SMS alerts. Create a free Twilio account and add your accounts test credentials to the .env file in the Development Twilio section. Your Twilio credentials should look something liek this:
 
-Run the application:
-
+```npm
+DEV_TWIL=AC69dff5629589916f94fa715f84584999
+DEV_TOKEN=9255e29965eab71cb409f9900099999
+DEV_RECIP=+15555555555
+DEV_SEND=+18675309
 ```
-npm start
-```
 
-The app should be running at _http://localhost:3000_.
+There is also a section for live Twilio credentials if you are using this app in production.
 
 ### Sequelize
 
-This application uses sequelize ORM, to connect to your database you will need to set some .env variables for sequelize to find. Your .env file should look something like this
-```npm
-DB_CONN=mysql://user:password@host:port/db_name
-```
-Once your .env file is saved, and assuming you're running a MySQL server, you should be able to run the migrations to get your database up to date
+This application uses sequelize ORM, to connect to your database you will need to set some .env variables for sequelize to find. Your .env file should look something like this:
 
 ```npm
-$ sequelize db:migrate
+DEV_HOST=127.0.0.1
+DEV_USER=root
+DEV_PASS=password
+DEV_PORT=3306
+DEV_DB=dio
+DEV_DIALECT=mysql
+DEV_CONN=mysql://root:password@127.0.0.1:3306/dio
+```
+
+There is also a section for live database credentials if you are using this app in production. Once your .env file is saved, and assuming you're running a MySQL server, you should be able to run the migrations to get your database up to date
+
+```npm
+npm run migrate
 ```
 
 ## Running the tests
 
-This application is tested using Mocha, Chai, and Supertest. To run the tests run
+This application is tested using Mocha, Chai, and Supertest. To run the tests run:
+
 ```npm
-$ npm test
+npm test
 ```
 
 ## Deployment
 
-WIP
+We have chosen to host this aplication on Heroku, if you want to do the same, you will need to login to your Heroku account and setup all of the environment variables there that are in your .env file. Once you have your credentials stored in your heroku repo, Deploying this project is as simple as running:
+
+```npm
+npm run deploy
+```
+
+This command will push the master branch to Heroku and deploy it there as well as run the migrations.
 
 ## Built With
 
