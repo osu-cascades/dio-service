@@ -8,10 +8,7 @@ const harvests = require("./harvest-routes");
 const moment = require("moment");
 const env = process.env.NODE_ENV;
 
-// only set up twilio if in production mode, texts cost $$$
-if (env === "production") {
-	const twilioEvent = require("../public/javascript/twilio");
-}
+const twilioEvent = require("../public/javascript/twilio");
 
 // save new reading to the database
 api.post("/do/readings", (req, res) => {
@@ -19,6 +16,7 @@ api.post("/do/readings", (req, res) => {
 		const reading = req.body.reading;
 		const location = req.body.location;
 		const type = req.body.type;
+		twilioEvent.eventFilter(reading);
 
 		console.log("reading: " + reading);
 		console.log("location: " + location);
@@ -38,7 +36,6 @@ api.post("/do/readings", (req, res) => {
 				res.send(err);
 			});
 		if (env === "production") {
-			twilioEvent.eventFilter(reading);
 			sendDataToJimsDatabase(reading, location, type);
 		}
 	} else {
