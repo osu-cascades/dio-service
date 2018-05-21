@@ -8,13 +8,7 @@ const development = {
 	database: process.env.DEV_DB,
 	host: process.env.DEV_HOST,
 	dialect: process.env.DEV_DIALECT,
-	// ----------------->
-	app: {
-		port: parseInt(process.env.DEV_APP_PORT) || 3000
-	},
-	db: {
-		connectionUrl: process.env.DEV_CONN
-	}
+	connectionUrl: process.env.DEV_CONN
 };
 
 const production = {
@@ -24,13 +18,7 @@ const production = {
 	database: process.env.PROD_DB,
 	host: process.env.PROD_HOST,
 	dialect: process.env.PROD_DIALECT,
-	// ---------------->
-	app: {
-		port: parseInt(process.env.PROD_APP_PORT) || 3000
-	},
-	db: {
-		connectionUrl: process.env.PROD_CONN
-	},
+	connectionUrl: process.env.PROD_CONN,
 	twilio: {
 		accountSid: process.env.accountSid,
 		authToken: process.env.authToken,
