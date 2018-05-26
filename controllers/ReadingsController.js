@@ -20,7 +20,7 @@ class ReadingsController {
 		}
 	}
 
-	ensureReadingDataIsNumeric() {
+	ensureReadingDataIsNumeric(data) {
 		const isDecimalOrFloat = /^[0-9]+([,.][0-9]+)?$/g;
 		if (isDecimalOrFloat.test(data)) {
 			return true;
@@ -38,25 +38,25 @@ class ReadingsController {
 	}
 
 	getAllReadings() {
-		models.Readings.findAll();
+		return models.Readings.findAll();
 	}
 
 	getLastTenReadings() {
-		models.Readings.findAll({
+		return models.Readings.findAll({
 			limit: 10,
 			order: [["createdAt", "DESC"]]
 		});
 	}
 
 	getLastReading() {
-		models.Readings.findAll({
+		return models.Readings.findAll({
 			limit: 1,
 			order: [["createdAt", "DESC"]]
 		});
 	}
 
 	getReadingsBetweenDates(start, end) {
-		models.Readings.findAll({
+		return models.Readings.findAll({
 			where: {
 				createdAt: {
 					[Op.between]: [start, end]

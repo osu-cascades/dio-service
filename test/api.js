@@ -38,22 +38,3 @@ describe("Dissolved Oxygen Routes", function() {
 			.end(done);
 	});
 });
-
-describe("Dissolved Oxygen Routes", function() {
-	it("fetches the last reading ", function(done) {
-		let request = supertest(app)
-			.get("/api/v1/do/readings/last")
-			.expect(200)
-			.expect([
-				{
-					id: 42,
-					reading: 7.77,
-					location: "loc",
-					type: 1,
-					createdAt: "2018-05-21T01:13:44.000Z",
-					updatedAt: "2018-05-21T01:13:44.000Z"
-				}
-			])
-			.end(done);
-	});
-});
