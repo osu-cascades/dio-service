@@ -1,77 +1,63 @@
 "use strict";
-
+const config = require("../config/config");
+const env = process.env.NODE_ENV;
 const models = require("../models");
 const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+const moment = require("moment");
+const twilio = require("./twilio");
 
 class ReadingsController {
+	handleReading(reading, location, type) {
+		if (this.ensureReadingDataIsNumeric(reading)) {
+			twilio.eventFilter(reading);
+			if (env === "production") {
+				this.sendDataToJimsDatabase(reading, location, type);
+			}
+			return this.saveReading(reading, location, type);
+		}
+	}
+
 	ensureReadingDataIsNumeric() {
 		const isDecimalOrFloat = /^[0-9]+([,.][0-9]+)?$/g;
-		return isDecimalOrFloat.test(data);
+		if (isDecimalOrFloat.test(data)) {
+			return true;
+		} else {
+			throw new Error("reading contained data that was not numeric");
+		}
 	}
 
 	saveReading(reading, location, type) {
-		models.Readings.create({
+		return models.Readings.create({
 			reading: reading,
 			location: location,
 			type: type
-		})
-			.then(() => {
-				res.status(200);
-				res.send(`Success`);
-			})
-			.catch(err => {
-				res.status(500);
-				res.send(err);
-			});
+		});
 	}
 
 	getAllReadings() {
-		models.Readings.findAll()
-			.then(readings => {
-				res.status(200);
-				res.send(readings);
-			})
-			.catch(err => {
-				res.status(500);
-				res.send(err);
-			});
+		models.Readings.findAll();
 	}
 
 	getLastTenReadings() {
 		models.Readings.findAll({
 			limit: 10,
 			order: [["createdAt", "DESC"]]
-		})
-			.then(readings => {
-				res.status(200);
-				res.send(readings);
-			})
-			.catch(error => {
-				res.status(500);
-				res.send(error);
-			});
+		});
 	}
 
 	getLastReading() {
 		models.Readings.findAll({
 			limit: 1,
 			order: [["createdAt", "DESC"]]
-		})
-			.then(reading => {
-				res.status(200);
-				res.send(reading);
-			})
-			.catch(error => {
-				res.status(500);
-				res.send(error);
-			});
+		});
 	}
 
 	getReadingsBetweenDates(start, end) {
 		models.Readings.findAll({
 			where: {
 				createdAt: {
-					[Op.between]: [req.query.start, req.query.end]
+					[Op.between]: [start, end]
 				}
 			}
 		})
@@ -125,13 +111,7 @@ class ReadingsController {
 				post_type: "DO",
 				grow_level: "Tank"
 			})
-			.into("monitoring")
-			.then(response => {
-				console.log(response);
-			})
-			.catch(errors => {
-				console.log(errors);
-			});
+			.into("monitoring");
 	}
 }
 
