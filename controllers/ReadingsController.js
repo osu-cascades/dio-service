@@ -8,6 +8,8 @@ const moment = require("moment");
 const twilio = require("./twilio");
 
 class ReadingsController {
+	constructor() {}
+
 	handleReading(reading, location, type) {
 		if (this.ensureReadingDataIsNumeric(reading)) {
 			twilio.eventFilter(reading);
@@ -60,15 +62,7 @@ class ReadingsController {
 					[Op.between]: [start, end]
 				}
 			}
-		})
-			.then(readings => {
-				res.status(200);
-				res.send(readings);
-			})
-			.catch(errors => {
-				res.status(400);
-				res.send(errors);
-			});
+		});
 	}
 
 	sendDataToJimsDatabase(reading, location, type) {

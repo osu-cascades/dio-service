@@ -1,6 +1,7 @@
 const express = require("express");
 const api = express.Router();
 const harvests = require("./harvest-routes");
+const config = require("../config/config");
 
 const ReadingsController = require("../controllers/ReadingsController");
 const controller = new ReadingsController();
