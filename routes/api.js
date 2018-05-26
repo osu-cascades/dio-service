@@ -8,7 +8,7 @@ const harvests = require("./harvest-routes");
 const moment = require("moment");
 const env = process.env.NODE_ENV;
 
-const twilioEvent = require("../public/javascript/twilio");
+const twilioEvent = require("../controllers/twilio");
 
 // save new reading to the database
 api.post("/do/readings", (req, res) => {
