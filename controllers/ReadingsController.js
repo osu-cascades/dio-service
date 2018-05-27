@@ -65,10 +65,8 @@ class ReadingsController {
 		});
 	}
 
-	sendDataToJimsDatabase(reading, location, type) {
-		let loc = location.match(/\d+/g).map(Number);
+	mapSensorType(type) {
 		let sensorType = "";
-
 		switch (type) {
 			case "0":
 				sensorType = "DO";
@@ -82,7 +80,10 @@ class ReadingsController {
 			default:
 				sensorType = "NA";
 		}
+		return sensorType;
+	}
 
+	knectAndSend(reading, location, type) {
 		let knex = require("knex")({
 			client: "mysql2",
 			connection: {
@@ -94,18 +95,22 @@ class ReadingsController {
 			}
 		});
 
-		console.log(`reading: ${reading}, location: ${location}, type: ${sensorType}, loc: ${loc}`);
-
 		knex
 			.insert({
 				heading: "DO",
 				value: reading,
 				datestamp: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-				location: loc,
-				post_type: "DO",
+				location: location,
+				post_type: type,
 				grow_level: "Tank"
 			})
 			.into("monitoring");
+	}
+
+	sendDataToJimsDatabase(reading, location, type) {
+		let loc = location.match(/\d+/g).map(Number) || location;
+		let sensorType = this.mapSensorType(type);
+		this.knectAndSend(reading, loc, sensorType);
 	}
 }
 

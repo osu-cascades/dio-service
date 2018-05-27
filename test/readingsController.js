@@ -29,6 +29,17 @@ describe("readingsController Tests", function() {
 		sinon.assert.threw(spy);
 	});
 
+	it("sends data to Jims database", function() {
+		let spy = sinon.spy(controller, "sendDataToJimsDatabase");
+		let stub = sinon.stub(controller, "knectAndSend");
+
+		controller.sendDataToJimsDatabase(4.44, "home 1", "0");
+		stub.restore();
+
+		sinon.assert.calledOnce(spy);
+		sinon.assert.calledWith(stub, 4.44, [1], "DO");
+	});
+
 	afterEach(function() {
 		save.restore();
 	});
