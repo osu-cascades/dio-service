@@ -63,3 +63,51 @@ describe("Dissolved Oxygen Routes", function() {
 			.end(done);
 	});
 });
+
+describe("Harvest Routes", function() {
+	let testHarvestId = 0;
+	it("creates a new harvest", function(done) {
+		let harvest = { name: "New Harvest", startDate: new Date(), endDate: new Date() };
+		let request = supertest(app)
+			.post("/api/v1/harvests")
+			.send(harvest)
+			.expect("Content-Type", /json/)
+			.expect(200)
+			.end(function(err, res) {
+				testHarvestId = res.body.id;
+				done();
+			});
+	});
+
+	it("fetches all harvests", function(done) {
+		let request = supertest(app)
+			.get("/api/v1/harvests")
+			.expect(200)
+			.expect("Content-Type", /json/)
+			.end(done);
+	});
+
+	it("fetches harvest by id", function(done) {
+		let request = supertest(app)
+			.get("/api/v1/harvests/" + testHarvestId)
+			.expect(200)
+			.expect("Content-Type", /json/)
+			.end(done);
+	});
+
+	it("updates harvest by id", function(done) {
+		let harvest = { name: "Test", startDate: new Date(), endDate: new Date() };
+		let request = supertest(app)
+			.post("/api/v1/harvests/" + testHarvestId)
+			.send(harvest)
+			.expect(200)
+			.end(done);
+	});
+
+	it("deletes harvest by id", function(done) {
+		let request = supertest(app)
+			.del("/api/v1/harvests/" + testHarvestId)
+			.expect(200)
+			.end(done);
+	});
+});
