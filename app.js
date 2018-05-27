@@ -14,7 +14,7 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "views"));
 
-app.use(favicon(__dirname + "/public/vv-favicon.ico"));
+app.use(favicon(__dirname + "/vv-favicon.ico"));
 app.use(logger(process.env.NODE_ENV));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
