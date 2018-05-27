@@ -21,9 +21,12 @@ describe("readingsController Tests", function() {
 	it("throws an error if reading is non-numeric", function() {
 		let spy = sinon.spy(controller, "ensureReadingDataIsNumeric");
 
-		controller.handleReading(4.44, "home", 0);
+		try {
+			controller.ensureReadingDataIsNumeric("derp");
+		} catch (error) {}
 
 		sinon.assert.calledOnce(spy);
+		sinon.assert.threw(spy);
 	});
 
 	afterEach(function() {
