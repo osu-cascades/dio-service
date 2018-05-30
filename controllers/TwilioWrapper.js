@@ -1,16 +1,12 @@
 const twilio = require("twilio");
 const config = require("../config/config");
 
-const client = new twilio(config.twilio.accountSid, config.twilio.authToken);
+class TwilioWrapper {
 
-const twilioEvent = {
-	eventFilter(reading) {
-		if (reading < 5) {
-			this.sendNotification();
-		}
-	},
+	constructor() {
+	}
 
-	sendNotification() {
+	sendNotification(client) {
 		client.messages
 			.create({
 				body: "The Dissolved Oxygen reading fell below 5ppm",
@@ -20,6 +16,7 @@ const twilioEvent = {
 			.then(message => console.log("Text message sent: id:" + message.sid))
 			.catch(errors => console.log("Failed to send text: " + errors));
 	}
-};
 
-module.exports = twilioEvent;
+}
+
+module.exports = TwilioWrapper;
