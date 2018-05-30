@@ -6,7 +6,7 @@ const ReadingsController = require("../controllers/ReadingsController");
 
 const TwilioWrapper = require("../lib/TwilioWrapper");
 
-const client = {} //new twilio(config.twilio.accountSid, config.twilio.authToken);
+const client = new twilio(config.twilio.accountSid, config.twilio.authToken);
 const twilioWrapper = new TwilioWrapper(client);
 const controller = new ReadingsController(twilioWrapper);
 
