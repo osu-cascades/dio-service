@@ -5,8 +5,8 @@ const favicon = require("serve-favicon");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 
-const routes = require("./routes/index");
-const api = require("./routes/api.js");
+const readings = require("./routes/readings");
+const harvests = require("./routes/harvests")
 
 const app = express();
 
@@ -28,19 +28,18 @@ app.use((req, res, next) => {
 	next();
 });
 
-// routes
-app.use("/", routes);
-app.use("/api/v1", api);
 
-// catch 404 and forward to error handler
+// Routes
+app.get('/', (req, res) => { res.render('index', {title: 'DiO Service'}) });
+app.use("/api/v1", readings);
+app.use("/api/v1/harvests", harvests);
+// 404 handler
 app.use((req, res, next) => {
 	let err = new Error("Not Found");
 	err.status = 404;
 	next(err);
 });
-
-// error handler
-// prevents stack traces from getting to use unless in development mode
+// Error handler. Display stack traces in development.
 app.use((err, req, res, next) => {
 	res.status(err.status || 500);
 	res.render("error", {

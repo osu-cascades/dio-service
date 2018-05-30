@@ -1,18 +1,17 @@
 const express = require("express");
-const api = express.Router();
-const harvests = require("./harvest-routes");
+const router = express.Router();
 const config = require("../config/config");
 const twilio = require("twilio")
 const ReadingsController = require("../controllers/ReadingsController");
 
 const TwilioWrapper = require("../lib/TwilioWrapper");
 
-const client = new twilio(config.twilio.accountSid, config.twilio.authToken);
+const client = {} //new twilio(config.twilio.accountSid, config.twilio.authToken);
 const twilioWrapper = new TwilioWrapper(client);
 const controller = new ReadingsController(twilioWrapper);
 
 // save new reading to the database
-api.post("/do/readings", (req, res) => {
+router.post("/do/readings", (req, res) => {
 	const reading = req.body.reading;
 	const location = req.body.location;
 	const type = req.body.type;
@@ -30,7 +29,7 @@ api.post("/do/readings", (req, res) => {
 });
 
 // get all readings
-api.get("/do/readings", (req, res) => {
+router.get("/do/readings", (req, res) => {
 	controller
 		.getAllReadings()
 		.then(readings => {
@@ -44,7 +43,7 @@ api.get("/do/readings", (req, res) => {
 });
 
 // get last 10 readings
-api.get("/do/readings/recent", (req, res) => {
+router.get("/do/readings/recent", (req, res) => {
 	controller
 		.getLastTenReadings()
 		.then(readings => {
@@ -58,7 +57,7 @@ api.get("/do/readings/recent", (req, res) => {
 });
 
 // get last reading
-api.get("/do/readings/last", (req, res) => {
+router.get("/do/readings/last", (req, res) => {
 	controller
 		.getLastReading()
 		.then(reading => {
@@ -72,7 +71,7 @@ api.get("/do/readings/last", (req, res) => {
 });
 
 // get readings between start date and end date
-api.get("/do/readings/query", (req, res) => {
+router.get("/do/readings/query", (req, res) => {
 	const start = req.query.start;
 	const end = req.query.end;
 	controller
@@ -87,6 +86,4 @@ api.get("/do/readings/query", (req, res) => {
 		});
 });
 
-api.use("/harvests", harvests);
-
-module.exports = api;
+module.exports = router;

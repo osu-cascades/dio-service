@@ -1,27 +1,24 @@
 const app = require("../app");
 const supertest = require("supertest");
-const cheerio = require("cheerio");
 const chai = require("chai");
 const expect = chai.expect;
-const sinon = require("sinon");
 
 describe("Simple API landing page", function() {
-	let request;
-	beforeEach(function() {
+
+	it("returns an HTML response", function(done) {
 		request = supertest(app)
 			.get("/")
 			.set("Accept", "text/html");
-	});
-
-	it("returns an HTML response", function(done) {
 		request
 			.expect("Content-Type", /html/)
 			.expect(200)
 			.end(done);
 	});
+
 });
 
 describe("Dissolved Oxygen Routes", function() {
+
 	it("saves new reading in dataabse", function(done) {
 		let reading = { reading: 5.55, location: "tank 1", type: 0 };
 		let request = supertest(app)
@@ -62,10 +59,13 @@ describe("Dissolved Oxygen Routes", function() {
 			.expect("Content-Type", /json/)
 			.end(done);
 	});
+
 });
 
 describe("Harvest Routes", function() {
+
 	let testHarvestId = 0;
+
 	it("creates a new harvest", function(done) {
 		let harvest = { name: "New Harvest", startDate: new Date(), endDate: new Date() };
 		let request = supertest(app)
@@ -110,4 +110,5 @@ describe("Harvest Routes", function() {
 			.expect(200)
 			.end(done);
 	});
+
 });

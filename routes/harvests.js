@@ -1,11 +1,10 @@
 const express = require('express');
 const models = require('../models');
-const harvests = express.Router();
+const router = express.Router();
 const Sequelize = require('sequelize');
-const moment = require('moment');
 
 // get all harvests
-harvests.get('/', (req, res) => {
+router.get('/', (req, res) => {
     models.Harvest.findAll()
         .then((harvests) => {
             res.status(200);
@@ -18,7 +17,7 @@ harvests.get('/', (req, res) => {
 });
 
 // create a new harvest
-harvests.post('/', (req, res) => {
+router.post('/', (req, res) => {
     models.Harvest.create({
         name: 'New Harvest',
         startDate: new Date(),
@@ -35,7 +34,7 @@ harvests.post('/', (req, res) => {
 });
 
 // get harvest by id
-harvests.get('/:id', (req,res) => {
+router.get('/:id', (req,res) => {
     let harvestId = req.params.id;
     console.log("id: " + harvestId);
     models.Harvest.findById(harvestId)
@@ -50,7 +49,7 @@ harvests.get('/:id', (req,res) => {
 });
 
 // update harvest by id
-harvests.post('/:id', (req, res) => {
+router.post('/:id', (req, res) => {
     let harvestId = req.params.id;
     models.Harvest.findById(harvestId)
         .then((harvest) => {
@@ -68,7 +67,7 @@ harvests.post('/:id', (req, res) => {
         });
 });
 
-harvests.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     let harvestId = req.params.id;
     models.Harvest.findById(harvestId)
         .then((harvest) => {
@@ -82,4 +81,4 @@ harvests.delete('/:id', (req, res) => {
         });
 });
 
-module.exports = harvests;
+module.exports = router;
