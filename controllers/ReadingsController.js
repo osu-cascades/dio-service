@@ -5,18 +5,19 @@ const models = require("../models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const moment = require("moment");
-const TwilioWrapper = require("../lib/TwilioWrapper");
 
 class ReadingsController {
-	constructor() {}
+
+	constructor(twilioWrapper) {
+		this.twilioWrapper = twilioWrapper;
+	}
 
 	handleReading(reading, location, type) {
 		if (this.ensureReadingDataIsNumeric(reading)) {
 			if (env === "production") {
 				this.sendDataToJimsDatabase(reading, location, type);
 				if (reading < 5) {
-					const client = new twilio(config.twilio.accountSid, config.twilio.authToken);
-					this.sendNotification(client,
+					this.twilioWrapper.sendNotification(
 						"The Dissolved Oxygen reading fell below 5ppm",
 						config.twilio.recipient,
 						config.twilio.sender);

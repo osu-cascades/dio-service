@@ -2,9 +2,14 @@ const express = require("express");
 const api = express.Router();
 const harvests = require("./harvest-routes");
 const config = require("../config/config");
-
+const twilio = require("twilio")
 const ReadingsController = require("../controllers/ReadingsController");
-const controller = new ReadingsController();
+
+const TwilioWrapper = require("../lib/TwilioWrapper");
+
+const client = new twilio(config.twilio.accountSid, config.twilio.authToken);
+const twilioWrapper = new TwilioWrapper(client);
+const controller = new ReadingsController(twilioWrapper);
 
 // save new reading to the database
 api.post("/do/readings", (req, res) => {
