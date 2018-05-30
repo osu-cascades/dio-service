@@ -8,8 +8,8 @@
     "build": "cross-env NODE_ENV=production node app.js",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "deploy": "git push origin master && git push heroku master && heroku run npm run migrate",
-    "test": "cross-env NODE_ENV=test mocha --exit",
-    "coverage": "cross-env NODE_ENV=test nyc mocha --exit"
+    "test": "cross-env NODE_ENV=test mocha --recursive --exit",
+    "coverage": "cross-env NODE_ENV=test nyc mocha --recursive --exit"
   },
   "repository": {
     "type": "git",

@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const config = require("../config/config");
 const twilio = require("twilio")
-const ReadingsController = require("../controllers/ReadingsController");
+const ReadingsController = require("../controllers/readings-controller");
 
-const TwilioWrapper = require("../lib/TwilioWrapper");
+const TwilioWrapper = require("../lib/twilio-wrapper");
 
 const client = new twilio(config.twilio.accountSid, config.twilio.authToken);
 const twilioWrapper = new TwilioWrapper(client);

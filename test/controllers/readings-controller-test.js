@@ -1,14 +1,17 @@
 const chai = require("chai");
 const expect = chai.expect;
 const sinon = require("sinon");
-const Controller = require("../controllers/ReadingsController");
+const ReadingsController = require("../../controllers/readings-controller");
 
-describe("readingsController Tests", function() {
-	let controller = new Controller();
+describe("ReadingsController", function() {
+
+	let controller = new ReadingsController();
 	let save;
+
 	beforeEach(function() {
 		save = sinon.stub(controller, "saveReading");
 	});
+
 	it("saves the new reading", function() {
 		let spy = sinon.spy(controller, "handleReading");
 
@@ -43,6 +46,7 @@ describe("readingsController Tests", function() {
 	afterEach(function() {
 		save.restore();
 	});
+
 });
 
 const fakeData = [
