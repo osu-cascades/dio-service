@@ -5,7 +5,7 @@ const models = require("../models");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const moment = require("moment");
-const TwilioWrapper = require("./TwilioWrapper");
+const TwilioWrapper = require("../lib/TwilioWrapper");
 
 class ReadingsController {
 	constructor() {}
@@ -16,7 +16,10 @@ class ReadingsController {
 				this.sendDataToJimsDatabase(reading, location, type);
 				if (reading < 5) {
 					const client = new twilio(config.twilio.accountSid, config.twilio.authToken);
-					this.sendNotification(client);
+					this.sendNotification(client,
+						"The Dissolved Oxygen reading fell below 5ppm",
+						config.twilio.recipient,
+						config.twilio.sender);
 				}
 			}
 			return this.saveReading(reading, location, type);
