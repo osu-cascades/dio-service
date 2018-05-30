@@ -1,4 +1,3 @@
-const twilio = require("twilio");
 const config = require("../config/config");
 
 class TwilioWrapper {
